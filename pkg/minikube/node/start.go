@@ -385,6 +385,10 @@ func startHost(api libmachine.API, cc *config.ClusterConfig, n *config.Node, del
 		return host, exists, err
 	}
 
+	if errors.Is(err, oci.ErrExitedUnexpectedly) {
+		// err = fmt.Errorf()
+	}
+
 	out.ErrT(out.Embarrassed, "StartHost failed, but will try again: {{.error}}", out.V{"error": err})
 	// Try again, but just once to avoid making the logs overly confusing
 	time.Sleep(5 * time.Second)
